@@ -1,0 +1,73 @@
+{
+  "_comment": "新专业知识图谱标准模板 —— 复制此文件并按字段说明填写",
+  "id": "your-domain-id",
+  "_id_comment": "图谱唯一标识符，小写字母+连字符，例：cross-border-ecommerce / ai-engineering",
+  "name": "专业名称知识星图",
+  "version": "1.0.0",
+  "description": "一句话描述本图谱覆盖的知识领域和目标受众",
+  "createdAt": "YYYY-MM-DD",
+  "updatedAt": "YYYY-MM-DD",
+  "nodes": [
+    {
+      "_comment_node": "以下是一个完整的节点示例，所有字段说明见下方",
+      "id": "node_unique_id",
+      "_id": "节点唯一ID，小写字母+下划线，在图谱内唯一",
+      "label": "节点显示名称",
+      "_label": "2-6个汉字，在星图中显示于节点上方",
+      "subLabel": "副标签（可选）",
+      "_subLabel": "补充说明，4-8字，显示于节点下方，可为null",
+      "domain": "TRADE",
+      "_domain": "所属星域，枚举值：CORE|TRADE|PLATFORM|MARKETING|SUPPLY|FINANCE|DATA|CROSS",
+      "status": "LOCKED",
+      "_status": "初始状态，新节点一般为LOCKED，核心节点为DISCOVERED",
+      "description": "节点知识点的详细描述，至少100字，包含该知识点的核心内容、学习价值和应用场景",
+      "prerequisites": ["dependency_node_id_1", "dependency_node_id_2"],
+      "_prerequisites": "前置依赖节点ID数组，为空时填[]，建议不超过4个直接前置依赖",
+      "certifications": ["CERT-ID-001"],
+      "_certifications": "与此节点关联的证书ID数组，暂无则填[]",
+      "x": 600,
+      "_x": "初始布局X坐标（0-1200），D3力导向图会自动调整，但提供初始值可加速布局稳定",
+      "y": 400,
+      "_y": "初始布局Y坐标（0-800）",
+      "radius": 24,
+      "_radius": "节点圆形半径（像素），核心节点建议36，主要节点24-28，叶子节点18-22"
+    }
+  ],
+  "_nodes_guidelines": [
+    "每个图谱建议包含15-40个节点，过多会影响视觉清晰度",
+    "必须有且仅有一个 domain=CORE 的根节点，prerequisites=[]",
+    "节点ID在全图唯一，一旦发布不可修改（会破坏用户学习进度数据）",
+    "description字段是AI学习顾问的知识库，请尽量详细准确",
+    "prerequisites只列直接前置依赖，不需要列传递依赖"
+  ],
+  "edges": [
+    {
+      "source": "prerequisite_node_id",
+      "_source": "前置节点ID（边的起点）",
+      "target": "dependent_node_id",
+      "_target": "依赖节点ID（边的终点）",
+      "weight": 2,
+      "_weight": "边的权重1-3，表示依赖强度：3=强依赖/必须先学，2=建议先学，1=弱关联"
+    }
+  ],
+  "_edges_guidelines": [
+    "edges数组应与nodes中的prerequisites字段保持一致",
+    "edges描述的是'学习顺序'（prerequisite→dependent），方向不可反",
+    "weight=3表示强依赖（没有前置知识无法理解）",
+    "weight=2表示中等依赖（有助于理解但非必须）",
+    "weight=1表示弱关联（跨星域的软性联系）"
+  ],
+  "metadata": {
+    "totalNodes": 0,
+    "_totalNodes": "节点总数，创建完成后填写",
+    "totalEdges": 0,
+    "_totalEdges": "边总数，创建完成后填写",
+    "domains": [],
+    "_domains": "本图谱包含的星域列表",
+    "difficulty": "intermediate",
+    "_difficulty": "枚举值：beginner | intermediate | advanced",
+    "estimatedHours": 0,
+    "_estimatedHours": "完成全部节点学习的预估总小时数",
+    "targetAudience": "目标学习者描述"
+  }
+}

@@ -1,0 +1,42 @@
+version: '3.9'
+
+# 开发环境覆盖配置：只启动基础设施服务，应用服务在本机热重载运行
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: lgp_dev_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: lifelong_growth_dev
+    ports:
+      - '5432:5432'
+    volumes:
+      - dev_postgres_data:/var/lib/postgresql/data
+    networks:
+      - lgp_dev_network
+
+  neo4j:
+    image: neo4j:5.15-community
+    container_name: lgp_dev_neo4j
+    restart: unless-stopped
+    environment:
+      NEO4J_AUTH: neo4j/password
+      NEO4J_PLUGINS: '["apoc"]'
+      NEO4J_dbms_security_procedures_unrestricted: apoc.*
+    ports:
+      - '7474:7474'
+      - '7687:7687'
+    volumes:
+      - dev_neo4j_data:/data
+    networks:
+      - lgp_dev_network
+
+volumes:
+  dev_postgres_data:
+  dev_neo4j_data:
+
+networks:
+  lgp_dev_network:
+    driver: bridge

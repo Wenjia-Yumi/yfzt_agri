@@ -1,0 +1,30 @@
+{
+  "name": "lifelong-growth-platform",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --parallel --filter './apps/*' dev",
+    "build": "pnpm --filter './packages/*' build && pnpm --filter './apps/*' build",
+    "lint": "pnpm --recursive lint",
+    "type-check": "pnpm --recursive type-check",
+    "test": "pnpm --recursive test",
+    "docker:dev": "docker-compose -f docker-compose.dev.yml up",
+    "docker:prod": "docker-compose up --build",
+    "seed": "ts-node --project tsconfig.base.json scripts/seed-graph.ts",
+    "health": "ts-node --project tsconfig.base.json scripts/health-check.ts",
+    "gen:types": "ts-node --project tsconfig.base.json scripts/generate-types.ts"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "@types/node": "^20.11.0",
+    "ts-node": "^10.9.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  }
+}
